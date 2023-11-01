@@ -23,8 +23,8 @@ wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.connect(link.keys['WIFI_NAME'], link.keys['WIFI_PASS'])
 
-# connect to the network 
-while(True):
+# attempt to connect to the network for 20 seconds 
+for i in range(20):
     if wlan.isconnected() and wlan.status() == 3:
         onboard.on()
         break
@@ -32,11 +32,13 @@ while(True):
         print(wlan.status())
         time.sleep(1)
 
-k = 0
-k_max = 360
+# reset the device if it is not connected to the network
+if wlan.status() != 3:
+    machine.reset()
 
-# enter the main control loop
-while True:
+
+# enter the main control loop for at least 1 hour (memory leak/low voltage after 3 days or 8640 cycles)
+for j in range(360):
     
     # get averaged data
     photo_sum = 0
@@ -53,3 +55,6 @@ while True:
         print("SEND OK")
     
     time.sleep(9)
+
+# after an hour, reset everything and restart
+machine.reset()
