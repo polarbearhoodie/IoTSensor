@@ -1,0 +1,5 @@
+SAMPLEKEY=SAMPLEVALUE
+WIFI_NAME=somewifiname
+WIFI_PASS=somewifipassword
+INFLUX_URL=http://yourinfluxinstanceurl
+INFLUX_AUTH=yourauthenticationkeyfrominflux
